@@ -15,6 +15,7 @@ class Content extends Model
     protected $table = 'content';
 
     protected $fillable = [
+        'title',
         'description',
         'category_id',
     ];

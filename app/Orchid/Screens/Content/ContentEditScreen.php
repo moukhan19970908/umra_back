@@ -84,7 +84,7 @@ class ContentEditScreen extends Screen
         return [
             Layout::block(ContentEditLayout::class)
                 ->title('Контент')
-                ->description('Заполните данные: категорию, описание и загрузите изображения.')
+                ->description('Заполните данные: категорию, тему, описание и загрузите изображения.')
                 ->commands(
                     Button::make('Сохранить')
                         ->type(Color::BASIC)
@@ -103,11 +103,13 @@ class ContentEditScreen extends Screen
     {
         $request->validate([
             'content.category_id' => ['required', 'integer'],
+            'content.title' => ['required','string'],
             'content.description'  => ['required', 'string'],
         ]);
 
         // Сохраняем основную запись
         $content->fill([
+            'title' => $request->input('content.title'),
             'description' => $request->input('content.description'),
             'category_id' => $request->input('content.category_id'),
         ])->save();
