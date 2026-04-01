@@ -30,6 +30,10 @@ class ContentListLayout extends Table
                 ->cantHide()
                 ->width('80px'),
 
+            TD::make('title', 'Название')
+                ->cantHide()
+                ->render(fn(Content $content) => \Illuminate\Support\Str::limit($content->description, 80)),
+
             TD::make('description', 'Описание')
                 ->cantHide()
                 ->render(fn(Content $content) => \Illuminate\Support\Str::limit($content->description, 80)),

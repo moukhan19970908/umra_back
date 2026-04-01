@@ -25,6 +25,12 @@ class ContentEditLayout extends Rows
                 ->empty('— Выберите категорию —')
                 ->required(),
 
+            TextArea::make('content.title')
+                ->title('Название контента')
+                ->placeholder('Введите название...')
+                ->rows(1)
+                ->required(),
+
             TextArea::make('content.description')
                 ->title('Описание (контент)')
                 ->placeholder('Введите описание...')
