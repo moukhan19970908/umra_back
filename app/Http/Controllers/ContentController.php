@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
 use App\Models\ContentCategory;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,10 @@ class ContentController extends Controller
     }
 
     public function getContentByCategory($id){
-        return response()->json(['data' => ContentCategory::where('id',$id)->select('id','name')->get()]);
+        return response()->json(['data' => Content::with('images')->where('id',$id)->paginate()]);
+    }
+
+    public function getContentAllCategory(){
+        return response()->json(['data' => Content::with('images')->paginate()]);
     }
 }
