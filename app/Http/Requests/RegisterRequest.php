@@ -24,9 +24,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email',
             'phone' => 'required|string',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'surname' => 'required|string'
         ];
     }
 
@@ -34,8 +34,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'Полное имя объязательно к заполнению',
-            'email.required' => 'Почта объязательно к заполнению',
-            'email.email' => 'Укажите корректную почту',
+            'surname.required' => 'Фамилия объязательно к заполнению',
             'phone.required' => 'Телефон объязательно к заполнению',
             'password.required' => 'Пароль объязательно к заполнению'
         ];
