@@ -23,8 +23,17 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email',
+            'phone' => 'required|string|email',
             'password' => 'required|string|min:6'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'phone.required' => 'Телефон объязателен  к заполнению',
+            'password.required' => 'Пароль объязателен к заполнению',
+            'password.min' => 'Минимальное количество пароля 6 символов'
         ];
     }
 }
