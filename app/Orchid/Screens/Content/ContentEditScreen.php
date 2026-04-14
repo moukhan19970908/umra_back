@@ -115,9 +115,9 @@ class ContentEditScreen extends Screen
         ])->save();
 
         // Upload в Orchid возвращает ПОЛНЫЙ список attachment ID (старые + новые).
-        // Поэтому удаляем все старые записи и пересоздаём из актуального списка.
         $attachmentIds = array_filter((array) $request->input('content.images', []));
 
+        $oldImages = $content->images->keyBy('id');
         $content->images()->delete();
 
         foreach ($attachmentIds as $attachmentId) {
@@ -128,6 +128,11 @@ class ContentEditScreen extends Screen
                 ContentImages::create([
                     'content_id' => $content->id,
                     'name'       => $attachment->url(),
+                ]);
+            } elseif (isset($oldImages[$attachmentId])) {
+                ContentImages::create([
+                    'content_id' => $content->id,
+                    'name'       => $oldImages[$attachmentId]->name,
                 ]);
             }
         }

@@ -119,10 +119,11 @@ class HotelEditScreen extends Screen
             'description' => $request->input('hotel.description'),
         ])->save();
 
-        // Upload в Orchid возвращает ПОЛНЫЙ список attachment ID (старые + новые).
-        // Поэтому удаляем все старые записи и пересоздаём из актуального списка.
-        $attachmentIds = array_filter((array) $request->input('hotel.images', []));
+        // The field is named 'images' in the layout, not 'hotel.images'.
+        $attachmentIds = array_filter((array) $request->input('images', []));
 
+        // Get currently associated images to prevent deletion of existing ones
+        $oldImages = $hotel->images->keyBy('id');
         $hotel->images()->delete();
 
         foreach ($attachmentIds as $attachmentId) {
@@ -133,6 +134,12 @@ class HotelEditScreen extends Screen
                 HotelImages::create([
                     'hotel_id' => $hotel->id,
                     'image'    => $attachment->url(),
+                ]);
+            } elseif (isset($oldImages[$attachmentId])) {
+                // If it is an ID of an existing HotelImages record, retain it
+                HotelImages::create([
+                    'hotel_id' => $hotel->id,
+                    'image'    => $oldImages[$attachmentId]->image,
                 ]);
             }
         }
