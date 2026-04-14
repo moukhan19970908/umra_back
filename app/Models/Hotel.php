@@ -9,7 +9,7 @@ use Orchid\Screen\AsSource;
 
 class Hotel extends Model
 {
-    use AsSource,Attachable;
+    use AsSource, Attachable;
     protected $fillable = [
         'name',
         'star',
@@ -19,5 +19,10 @@ class Hotel extends Model
     public function images(): HasMany
     {
         return $this->hasMany(HotelImages::class);
+    }
+
+    public function firstImage()
+    {
+        return $this->hasOne(HotelImages::class)->oldest();
     }
 }
