@@ -15,7 +15,7 @@ class TourController extends Controller
 
     public function getTourById($id)
     {
-        $tour = Tour::with('hotel.firstImage', 'packet')->find($id);
+        $tour = Tour::with('hotel.images', 'packet')->find($id);
         return response()->json(['data' => $tour]);
     }
 }
