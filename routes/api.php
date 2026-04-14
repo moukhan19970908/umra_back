@@ -10,3 +10,5 @@ Route::post('/register',[\App\Http\Controllers\UserController::class,'register']
 Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
 Route::get('/surah',[\App\Http\Controllers\SurahController::class,'surah']);
 Route::get('/surah/{id}',[\App\Http\Controllers\SurahController::class,'surahGetId']);
+
+Route::get("/add/verses",[\App\Http\Controllers\SurahController::class,'verses']);

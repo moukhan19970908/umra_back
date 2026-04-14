@@ -17,6 +17,12 @@ use App\Orchid\Screens\ContentCategory\ContentCategoryEditScreen;
 use App\Orchid\Screens\ContentCategory\ContentCategoryListScreen;
 use App\Orchid\Screens\Verse\VerseListScreen;
 use App\Orchid\Screens\Verse\VerseEditScreen;
+use App\Orchid\Screens\Hotel\HotelListScreen;
+use App\Orchid\Screens\Hotel\HotelEditScreen;
+use App\Orchid\Screens\Packet\PacketListScreen;
+use App\Orchid\Screens\Packet\PacketEditScreen;
+use App\Orchid\Screens\Tour\TourListScreen;
+use App\Orchid\Screens\Tour\TourEditScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -40,6 +46,69 @@ use Tabuna\Breadcrumbs\Trail;
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');
+
+// Platform > Tours > Edit
+Route::screen('tours/{tour}/edit', TourEditScreen::class)
+    ->name('platform.tours.edit')
+    ->breadcrumbs(fn(Trail $trail, $tour) => $trail
+        ->parent('platform.tours')
+        ->push('Редактировать', route('platform.tours.edit', $tour)));
+
+// Platform > Tours > Create
+Route::screen('tours/create', TourEditScreen::class)
+    ->name('platform.tours.create')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.tours')
+        ->push('Добавить', route('platform.tours.create')));
+
+// Platform > Tours
+Route::screen('tours', TourListScreen::class)
+    ->name('platform.tours')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Туры', route('platform.tours')));
+
+// Platform > Packets > Edit
+Route::screen('packets/{packet}/edit', PacketEditScreen::class)
+    ->name('platform.packets.edit')
+    ->breadcrumbs(fn(Trail $trail, $packet) => $trail
+        ->parent('platform.packets')
+        ->push('Редактировать', route('platform.packets.edit', $packet)));
+
+// Platform > Packets > Create
+Route::screen('packets/create', PacketEditScreen::class)
+    ->name('platform.packets.create')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.packets')
+        ->push('Добавить', route('platform.packets.create')));
+
+// Platform > Packets
+Route::screen('packets', PacketListScreen::class)
+    ->name('platform.packets')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Пакеты', route('platform.packets')));
+
+// Platform > Hotels > Edit
+Route::screen('hotels/{hotel}/edit', HotelEditScreen::class)
+    ->name('platform.hotels.edit')
+    ->breadcrumbs(fn(Trail $trail, $hotel) => $trail
+        ->parent('platform.hotels')
+        ->push('Редактировать', route('platform.hotels.edit', $hotel)));
+
+// Platform > Hotels > Create
+Route::screen('hotels/create', HotelEditScreen::class)
+    ->name('platform.hotels.create')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.hotels')
+        ->push('Добавить', route('platform.hotels.create')));
+
+// Platform > Hotels
+Route::screen('hotels', HotelListScreen::class)
+    ->name('platform.hotels')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Отели', route('platform.hotels')));
 
 // Platform > Contents > Edit
 Route::screen('contents/{content}/edit', ContentEditScreen::class)

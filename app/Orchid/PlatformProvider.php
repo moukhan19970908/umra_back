@@ -34,6 +34,19 @@ class PlatformProvider extends OrchidServiceProvider
     public function menu(): array
     {
         return [
+            Menu::make('Туры')
+                ->icon('bs.geo-alt')
+                ->route('platform.tours')
+                ->title('Умра'),
+
+            Menu::make('Пакеты')
+                ->icon('bs.box-seam')
+                ->route('platform.packets'),
+
+            Menu::make('Отели')
+                ->icon('bs.building')
+                ->route('platform.hotels'),
+
             Menu::make('Категории контента')
                 ->icon('bs.tags')
                 ->route('platform.content-categories')
