@@ -9,6 +9,7 @@
         "php": "^8.3",
         "guzzlehttp/guzzle": "*",
         "laravel/framework": "^13.0",
+        "laravel/sanctum": "*",
         "laravel/tinker": "^3.0",
         "orchid/platform": "*"
     },

@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(RegisterRequest $request){
-        $user = User::where('phone',$request->phone)->first();
-        if ($user){
-            return response()->json(['messages' => 'Пользователь уже имеется'],500);
+    public function register(RegisterRequest $request)
+    {
+        $user = User::where('phone', $request->phone)->first();
+        if ($user) {
+            return response()->json(['messages' => 'Пользователь уже имеется'], 500);
         }
         $created = User::create([
             'name' => $request->name,
@@ -21,20 +22,24 @@ class UserController extends Controller
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
         ]);
-        if (!$created){
-            return response()->json(['messages' => 'Попробуйте позже'],500);
+        if (!$created) {
+            return response()->json(['messages' => 'Попробуйте позже'], 500);
         }
-        return response()->json(['success' => true]);
+        $newUser = User::where('phone', $request->phone)->first();
+        $token = $newUser->createToken('api-token')->plainTextToken;
+        return response()->json(['success' => true, 'token' => $token]);
     }
 
-    public function login(LoginRequest $request){
-        $user = User::where('phone',$request->phone)->first();
-        if (!$user){
-            return response()->json(['messages' => 'Неправильный логин или пароль'],500);
+    public function login(LoginRequest $request)
+    {
+        $user = User::where('phone', $request->phone)->first();
+        if (!$user) {
+            return response()->json(['messages' => 'Неправильный логин или пароль'], 500);
         }
-        if (!Hash::check($request->password,$user->password)){
-            return response()->json(['messages' => 'Неправильный логин или пароль'],500);
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['messages' => 'Неправильный логин или пароль'], 500);
         }
-        return response()->json(['success' => true]);
+        $token = $user->createToken('api-token')->plainTextToken;
+        return response()->json(['success' => true, 'token' => $token]);
     }
 }
