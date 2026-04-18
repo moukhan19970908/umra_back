@@ -27,7 +27,7 @@ class UserController extends Controller
         }
         $newUser = User::where('phone', $request->phone)->first();
         $token = $newUser->createToken('api-token')->plainTextToken;
-        return response()->json(['success' => true, 'token' => $token]);
+        return response()->json(['success' => true, 'token' => $token,'data' => $newUser]);
     }
 
     public function login(LoginRequest $request)
@@ -40,6 +40,6 @@ class UserController extends Controller
             return response()->json(['messages' => 'Неправильный логин или пароль'], 500);
         }
         $token = $user->createToken('api-token')->plainTextToken;
-        return response()->json(['success' => true, 'token' => $token]);
+        return response()->json(['success' => true, 'token' => $token,'data' => $user]);
     }
 }
