@@ -43,6 +43,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.box-seam')
                 ->route('platform.packets'),
 
+            Menu::make('Заявки на туры')
+                ->icon('bs.clipboard-check')
+                ->route('platform.books'),
+
             Menu::make('Отели')
                 ->icon('bs.building')
                 ->route('platform.hotels'),

@@ -16,4 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/add/verses", [\App\Http\Controllers\SurahController::class, 'verses']);
     Route::get('/get/tours', [TourController::class, 'getTours']);
     Route::get('/get/tour/{id}', [TourController::class, 'getTourById']);
+
+    Route::post('book/tour',[TourController::class,'bookTour']);
 });

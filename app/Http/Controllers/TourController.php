@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TourController extends Controller
 {
@@ -17,5 +20,43 @@ class TourController extends Controller
     {
         $tour = Tour::with('hotel.images', 'packet')->find($id);
         return response()->json(['data' => $tour]);
+    }
+
+    public function bookTour(Request $request){
+        $request->validate([
+            'passport' => 'required|file|max:10240',
+            'tour_id' => 'required|integer'
+        ]);
+        $passport = $request->file('passport');
+        $additionalFirst = $request->file('additional_first');
+        $additionalSecond = $request->file('additional_second');
+        $user = Auth::user();
+        if ($passport && $passport->getSize() < 1){
+            return response()->json(['messages' => 'Паспорт объязателен к отправке'],500);
+        }
+        $passport_path = $passport->store('uploads');
+        if (!$passport_path){
+            return response()->json(['messages' => 'Попробуйте позже'],500);
+        }
+        $additionalFirstPath = null;
+        if ($additionalFirst  && $additionalFirst->getSize() > 0){
+            $additionalFirstPath = $additionalFirst->store('uploads');
+        }
+        $additionalSecondPath = null;
+        if ($additionalSecond && $additionalSecond->getSize() > 0){
+            $additionalSecondPath = $additionalSecond->store('uploads');
+        }
+        $create = Book::create([
+            'tour_id' => $request->input('tour_id'),
+            'user_id' => $user->id,
+            'passport' => $passport_path,
+            'add_first' => $additionalFirstPath,
+            'add_second' => $additionalSecondPath,
+        ]);
+        if (!$create){
+            return response()->json(['messages' => 'Попробуйте позже']);
+        }
+        Tour::where('id',$request->input('tour_id'))->decrement('quantity');
+        return response()->json(['success' => true]);
     }
 }

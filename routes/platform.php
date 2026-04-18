@@ -110,6 +110,13 @@ Route::screen('hotels', HotelListScreen::class)
         ->parent('platform.index')
         ->push('Отели', route('platform.hotels')));
 
+// Platform > Books (Заявки)
+Route::screen('books', \App\Orchid\Screens\Book\BookListScreen::class)
+    ->name('platform.books')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Заявки на туры', route('platform.books')));
+
 // Platform > Contents > Edit
 Route::screen('contents/{content}/edit', ContentEditScreen::class)
     ->name('platform.contents.edit')
