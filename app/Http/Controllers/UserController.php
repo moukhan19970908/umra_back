@@ -13,6 +13,7 @@ class UserController extends Controller
     public function register(RegisterRequest $request)
     {
         $phone = str_replace('+', '', $request->phone);
+        $phone = str_replace(' ','',$phone);
         $phone  = trim($phone);
         $user = User::where('phone', $phone)->first();
         if ($user) {
@@ -35,6 +36,7 @@ class UserController extends Controller
     public function login(LoginRequest $request)
     {
         $phone = str_replace('+', '', $request->phone);
+        $phone = str_replace(' ','',$phone);
         $phone  = trim($phone);
         $user = User::where('phone', $phone)->first();
         if (!$user) {
