@@ -12,27 +12,29 @@ class UserController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $user = User::where('phone', $request->phone)->first();
+        $phone = str_replace('+', '', $request->phone);
+        $user = User::where('phone', $phone)->first();
         if ($user) {
             return response()->json(['messages' => 'Пользователь уже имеется'], 500);
         }
         $created = User::create([
             'name' => $request->name,
             'surname' => $request->surname,
-            'phone' => $request->phone,
+            'phone' => $phone,
             'password' => bcrypt($request->password),
         ]);
         if (!$created) {
             return response()->json(['messages' => 'Попробуйте позже'], 500);
         }
-        $newUser = User::where('phone', $request->phone)->first();
+        $newUser = User::where('phone', $phone)->first();
         $token = $newUser->createToken('api-token')->plainTextToken;
         return response()->json(['success' => true, 'token' => $token,'data' => $newUser]);
     }
 
     public function login(LoginRequest $request)
     {
-        $user = User::where('phone', $request->phone)->first();
+        $phone = str_replace('+', '', $request->phone);
+        $user = User::where('phone', $phone)->first();
         if (!$user) {
             return response()->json(['messages' => 'Неправильный логин или пароль'], 500);
         }
