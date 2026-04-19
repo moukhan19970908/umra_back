@@ -13,6 +13,7 @@ class UserController extends Controller
     public function register(RegisterRequest $request)
     {
         $phone = str_replace('+', '', $request->phone);
+        $phone  = trim($phone);
         $user = User::where('phone', $phone)->first();
         if ($user) {
             return response()->json(['messages' => 'Пользователь уже имеется'], 500);
@@ -34,6 +35,7 @@ class UserController extends Controller
     public function login(LoginRequest $request)
     {
         $phone = str_replace('+', '', $request->phone);
+        $phone  = trim($phone);
         $user = User::where('phone', $phone)->first();
         if (!$user) {
             return response()->json(['messages' => 'Неправильный логин или пароль'], 500);
