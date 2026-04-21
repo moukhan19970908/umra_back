@@ -15,7 +15,15 @@ class Book extends Model
         'passport',
         'add_first',
         'add_second',
-        'status'
+        'status',
+        'full_name',
+        'country_id',
+        'address',
+        'marital_status_id',
+        'profession',
+        'work_address',
+        'whatsapp_number',
+        'size',
     ];
 
     public function user()

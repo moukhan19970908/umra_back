@@ -18,4 +18,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/tour/{id}', [TourController::class, 'getTourById']);
 
     Route::post('book/tour',[TourController::class,'bookTour']);
+    Route::get('/get/country',[\App\Http\Controllers\CountryController::class,'getCountry']);
+    Route::get('/get/marital_status',[\App\Http\Controllers\MaritalStatusController::class,'getMarital']);
 });
