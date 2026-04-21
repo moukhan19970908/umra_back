@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Surah;
 use App\Models\Verse;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SurahController extends Controller
 {
@@ -15,7 +17,22 @@ class SurahController extends Controller
 
     public function surahGetId($id)
     {
-        return response()->json(['data' => Verse::where('surah_id', $id)->get()]);
+        $userId = Auth::user()['id'];
+        $data = Verse::leftJoin('favorites', function ($join) use ($userId) {
+            $join->on('favorites.verse_id', '=', 'verses.id')
+                ->where('favorites.user_id', $userId);
+        })
+            ->where('verses.surah_id', $id)
+            ->select(
+                'verses.id',
+                'verses.surah_id',
+                'verses.verse_number',
+                'verses.text_ar',
+                'verses.text_ru',
+                DB::raw('IF(favorites.id IS NOT NULL, true, false) as is_favorite')
+            )
+            ->get();
+        return response()->json(['data' => $data]);
     }
 
     public function verses()

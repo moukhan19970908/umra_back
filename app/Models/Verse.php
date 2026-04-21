@@ -23,4 +23,9 @@ class Verse extends Model
     {
         return $this->belongsTo(Surah::class);
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'verse_id');
+    }
 }
