@@ -98,12 +98,13 @@ class TourEditScreen extends Screen
     public function save(Tour $tour, Request $request): RedirectResponse
     {
         $request->validate([
-            'tour.start_date'  => ['required', 'date'],
-            'tour.end_date'    => ['required', 'date', 'after_or_equal:tour.start_date'],
-            'tour.price'       => ['required', 'integer', 'min:0'],
-            'tour.quantity'    => ['required', 'integer', 'min:1'],
-            'tour.hotel_id'    => ['required', 'exists:hotels,id'],
-            'tour.packet_id'   => ['required', 'exists:packets,id'],
+            'tour.start_date' => ['required', 'date'],
+            'tour.end_date' => ['required', 'date', 'after_or_equal:tour.start_date'],
+            'tour.price' => ['required', 'integer', 'min:0'],
+            'tour.quantity' => ['required', 'integer', 'min:1'],
+            'tour.hotel_id' => ['required', 'exists:hotels,id'],
+            'tour.hotel_medina_id' => ['required', 'exists:hotels,id'],
+            'tour.packet_id' => ['required', 'exists:packets,id'],
             'tour.description' => ['nullable', 'string'],
         ]);
 

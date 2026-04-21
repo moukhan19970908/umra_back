@@ -48,7 +48,13 @@ class TourEditLayout extends Rows
                 ->required(),
 
             Select::make('tour.hotel_id')
-                ->title('Отель')
+                ->title('Отель в Мекке')
+                ->fromModel(Hotel::class, 'name')
+                ->empty('— Выберите отель —')
+                ->required(),
+
+            Select::make('tour.hotel_medina_id')
+                ->title('Отель в Медине')
                 ->fromModel(Hotel::class, 'name')
                 ->empty('— Выберите отель —')
                 ->required(),

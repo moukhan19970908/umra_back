@@ -53,7 +53,7 @@ class BookListLayout extends Table
                     : '—'
                 ),
 
-            TD::make('add_first', 'Доп. документ 1')
+            TD::make('add_first', 'Фото')
                 ->render(fn(Book $book) => $book->add_first
                     ? Link::make('Скачать')
                         ->href(Storage::url($book->add_first))
@@ -62,7 +62,7 @@ class BookListLayout extends Table
                     : '—'
                 ),
 
-            TD::make('add_second', 'Доп. документ 2')
+            TD::make('add_second', 'Доп. документ 1')
                 ->render(fn(Book $book) => $book->add_second
                     ? Link::make('Скачать')
                         ->href(Storage::url($book->add_second))

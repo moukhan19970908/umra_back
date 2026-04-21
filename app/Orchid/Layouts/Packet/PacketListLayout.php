@@ -34,12 +34,6 @@ class PacketListLayout extends Table
                 ->cantHide()
                 ->render(fn(Packet $packet) => \Illuminate\Support\Str::limit($packet->name, 60)),
 
-            TD::make('hotel_mecca', 'Отель в Мекке')
-                ->render(fn(Packet $packet) => \Illuminate\Support\Str::limit($packet->hotel_mecca, 40)),
-
-            TD::make('hotel_medina', 'Отель в Медине')
-                ->render(fn(Packet $packet) => \Illuminate\Support\Str::limit($packet->hotel_medina, 40)),
-
             TD::make('fly', 'Перелёт')
                 ->render(fn(Packet $packet) => \Illuminate\Support\Str::limit($packet->fly, 40)),
 

@@ -22,16 +22,6 @@ class PacketEditLayout extends Rows
                 ->placeholder('Введите название пакета...')
                 ->required(),
 
-            Input::make('packet.hotel_mecca')
-                ->title('Отель в Мекке')
-                ->placeholder('Введите название отеля в Мекке...')
-                ->required(),
-
-            Input::make('packet.hotel_medina')
-                ->title('Отель в Медине')
-                ->placeholder('Введите название отеля в Медине...')
-                ->required(),
-
             Input::make('packet.fly')
                 ->title('Перелёт')
                 ->placeholder('Например: Москва — Джидда, прямой рейс...')

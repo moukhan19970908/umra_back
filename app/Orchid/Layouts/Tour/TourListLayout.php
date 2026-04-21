@@ -46,7 +46,10 @@ class TourListLayout extends Table
                 ->align(TD::ALIGN_CENTER)
                 ->render(fn(Tour $tour) => $tour->quantity),
 
-            TD::make('hotel_id', 'Отель')
+            TD::make('hotel_id', 'Отель в Мекке')
+                ->render(fn(Tour $tour) => $tour->hotel?->name ?? '—'),
+
+            TD::make('hotel_medina_id', 'Отель в Медине')
                 ->render(fn(Tour $tour) => $tour->hotel?->name ?? '—'),
 
             TD::make('packet_id', 'Пакет')

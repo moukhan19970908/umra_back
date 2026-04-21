@@ -99,16 +99,12 @@ class PacketEditScreen extends Screen
     {
         $request->validate([
             'packet.name'         => ['required', 'string'],
-            'packet.hotel_mecca'  => ['required', 'string'],
-            'packet.hotel_medina' => ['required', 'string'],
             'packet.fly'          => ['required', 'string'],
             'packet.advantages'   => ['required', 'string'],
         ]);
 
         $packet->fill([
             'name'         => $request->input('packet.name'),
-            'hotel_mecca'  => $request->input('packet.hotel_mecca'),
-            'hotel_medina' => $request->input('packet.hotel_medina'),
             'fly'          => $request->input('packet.fly'),
             'advantages'   => $request->input('packet.advantages'),
         ])->save();
