@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('add/favorites/{id}',[\App\Http\Controllers\FavoriteController::class,'addFavorites']);
     Route::get('get/favorites',[\App\Http\Controllers\FavoriteController::class,'getFavorites']);
     Route::post('/remove/favorite/{id}',[\App\Http\Controllers\FavoriteController::class,'removeFavorite']);
+    Route::get('/my/books',[\App\Http\Controllers\BookController::class,'myBooks']);
 });
