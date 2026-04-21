@@ -30,4 +30,14 @@ class FavoriteController extends Controller
         return response()->json(['data' => $data]);
         //return response()->json(['data' => ])
     }
+
+    public function removeFavorite($id){
+        $userId = Auth::user()['id'];
+        $remove = Favorite::where('verse_id',$id)->where('user_id',$userId)->delete();
+        if (!$remove){
+            return response()->json(['messages' => 'Попробуйте позже'],500);
+        }
+        return response()->json(['success' => true]);
+    }
+
 }
