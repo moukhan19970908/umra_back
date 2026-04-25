@@ -13,7 +13,7 @@ class ContentController extends Controller
     }
 
     public function getContentByCategory($id){
-        return response()->json(['data' => Content::with('images')->where('id',$id)->paginate()]);
+        return response()->json(['data' => Content::with('images')->where('category_id',$id)->paginate()]);
     }
 
     public function getContentAllCategory(){
