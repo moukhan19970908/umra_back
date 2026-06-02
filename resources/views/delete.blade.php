@@ -363,8 +363,8 @@
             </div>
             <div class="email-info">
                 <small>Электронная почта</small>
-                <a href="mailto:{{ config('app.support_email', 'support@yourapp.com') }}">
-                    {{ config('app.support_email', 'support@yourapp.com') }}
+                <a href="mailto:{{ config('app.support_email', 'support@nuriddin.tours') }}">
+                    {{ config('app.support_email', 'support@nuriddin.tours') }}
                 </a>
             </div>
         </div>
