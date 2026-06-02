@@ -48,4 +48,18 @@ class UserController extends Controller
         $token = $user->createToken('api-token')->plainTextToken;
         return response()->json(['success' => true, 'token' => $token,'data' => $user]);
     }
+
+    public function deleteAccount(Request $request)
+    {
+        $phone = str_replace('+', '', $request->phone);
+        $phone = str_replace(' ','',$phone);
+        $phone  = trim($phone);
+        $password = $request->input('password');
+        $user = User::where('phone', $phone)->first();
+        if (!$user || !Hash::check($password, $user->password)) {
+            return response()->json(['messages' => 'Неправильный email или пароль'], 500,[],JSON_UNESCAPED_UNICODE);
+        }
+        $user->delete();
+        return response()->json(['success' => true, 'messages' => 'Аккаунт успешно удален'],200,[],JSON_UNESCAPED_UNICODE);
+    }
 }
