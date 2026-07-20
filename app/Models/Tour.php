@@ -15,6 +15,7 @@ class Tour extends Model
         'price',
         'quantity',
         'hotel_id',
+        'hotel_medina_id',
         'packet_id',
         'description',
     ];
@@ -22,6 +23,11 @@ class Tour extends Model
     public function hotel()
     {
         return $this->belongsTo(Hotel::class);
+    }
+
+    public function hotelMedina()
+    {
+        return $this->belongsTo(Hotel::class, 'hotel_medina_id');
     }
 
     public function packet()

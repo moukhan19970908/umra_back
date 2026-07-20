@@ -50,7 +50,7 @@ class TourListLayout extends Table
                 ->render(fn(Tour $tour) => $tour->hotel?->name ?? '—'),
 
             TD::make('hotel_medina_id', 'Отель в Медине')
-                ->render(fn(Tour $tour) => $tour->hotel?->name ?? '—'),
+                ->render(fn(Tour $tour) => $tour->hotelMedina?->name ?? '—'),
 
             TD::make('packet_id', 'Пакет')
                 ->render(fn(Tour $tour) => $tour->packet?->name ?? '—'),
