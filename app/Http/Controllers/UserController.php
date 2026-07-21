@@ -62,4 +62,19 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['success' => true, 'messages' => 'Аккаунт успешно удален'],200,[],JSON_UNESCAPED_UNICODE);
     }
+
+    public function changePassword(Request $request){
+        $user = auth()->user();
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json(['messages' => 'Старый пароль неверный'], 500);
+        }
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+        return response()->json(['success' => true, 'messages' => 'Пароль успешно изменен'],200,[],JSON_UNESCAPED_UNICODE);
+
+    }
 }
