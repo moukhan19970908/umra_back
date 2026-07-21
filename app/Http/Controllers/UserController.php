@@ -67,7 +67,7 @@ class UserController extends Controller
         $user = auth()->user();
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|min:6|confirmed',
+            'new_password' => 'required|min:6',
         ]);
         if (!Hash::check($request->old_password, $user->password)) {
             return response()->json(['messages' => 'Старый пароль неверный'], 500);
