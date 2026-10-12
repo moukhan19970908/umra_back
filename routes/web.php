@@ -14,3 +14,8 @@ Route::post('/delete-account', [\App\Http\Controllers\UserController::class, 'de
 Route::get('/privacy-policy', function () {
     return view('privacy');
 })->name('privacy-policy');
+
+Route::get('/support', [\App\Http\Controllers\SupportController::class, 'index'])->name('support');
+Route::post('/support', [\App\Http\Controllers\SupportController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('support.store');

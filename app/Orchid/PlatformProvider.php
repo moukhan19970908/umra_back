@@ -51,6 +51,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.building')
                 ->route('platform.hotels'),
 
+            Menu::make('Обращения в поддержку')
+                ->icon('bs.headset')
+                ->route('platform.support-requests'),
+
             Menu::make('Категории контента')
                 ->icon('bs.tags')
                 ->route('platform.content-categories')

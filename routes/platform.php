@@ -117,6 +117,13 @@ Route::screen('books', \App\Orchid\Screens\Book\BookListScreen::class)
         ->parent('platform.index')
         ->push('Заявки на туры', route('platform.books')));
 
+// Platform > Support requests
+Route::screen('support-requests', \App\Orchid\Screens\Support\SupportRequestListScreen::class)
+    ->name('platform.support-requests')
+    ->breadcrumbs(fn(Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push('Обращения в поддержку', route('platform.support-requests')));
+
 // Platform > Contents > Edit
 Route::screen('contents/{content}/edit', ContentEditScreen::class)
     ->name('platform.contents.edit')
