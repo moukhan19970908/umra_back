@@ -4,6 +4,7 @@ use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
 Route::post('/login', [\App\Http\Controllers\UserController::class, 'login']);
+Route::post('/deleteAccount', [\App\Http\Controllers\UserController::class, 'deleteAccount']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-content-category', [\App\Http\Controllers\ContentController::class, 'getCategories']);

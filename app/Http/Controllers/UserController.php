@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Book;
+use App\Models\Favorite;
+use App\Models\SupportRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -57,9 +61,17 @@ class UserController extends Controller
         $password = $request->input('password');
         $user = User::where('phone', $phone)->first();
         if (!$user || !Hash::check($password, $user->password)) {
-            return response()->json(['messages' => 'Неправильный email или пароль'], 500,[],JSON_UNESCAPED_UNICODE);
+            return response()->json(['messages' => 'Неправильный номер телефона или пароль'], 500,[],JSON_UNESCAPED_UNICODE);
         }
-        $user->delete();
+        DB::transaction(function () use ($user, $phone) {
+            Book::where('user_id', $user->id)->delete();
+            Favorite::where('user_id', $user->id)->delete();
+            SupportRequest::whereIn('phone', [$phone, '+' . $phone])->delete();
+            DB::table('sessions')->where('user_id', $user->id)->delete();
+            DB::table('role_users')->where('user_id', $user->id)->delete();
+            $user->tokens()->delete();
+            $user->delete();
+        });
         return response()->json(['success' => true, 'messages' => 'Аккаунт успешно удален'],200,[],JSON_UNESCAPED_UNICODE);
     }
 
